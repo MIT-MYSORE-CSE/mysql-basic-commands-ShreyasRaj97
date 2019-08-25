@@ -1,0 +1,352 @@
+
+Setting environment for using XAMPP for Windows.
+HP@DESKTOP-RJBAGJO c:\xampp
+# mysql -uroot -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.3.16-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| student            |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> create database Students;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| student            |
+| students           |
+| test               |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [(none)]> use Students;
+Database changed
+MariaDB [Students]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [Students]> create table Students(usn varchar(10),name varchar(20),sem integer,sec char(1));
+Query OK, 0 rows affected (0.284 sec)
+
+MariaDB [Students]> desc Students;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| usn   | varchar(10) | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| sem   | int(11)     | YES  |     | NULL    |       |
+| sec   | char(1)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.012 sec)
+
+MariaDB [Students]> insert into Students values('4MH17CS070','Rahul',5,'C');
+Query OK, 1 row affected (0.172 sec)
+
+MariaDB [Students]> insert into Students values('4MH17CS100','Subramanya',5,'B');
+Query OK, 1 row affected (0.211 sec)
+
+MariaDB [Students]> insert into Students values('4MH17CS069','Rakshith',5,'C');
+Query OK, 1 row affected (0.149 sec)
+
+MariaDB [Students]> insert into Students values('4MH17CS102','Supreeth',5,'B');
+Query OK, 1 row affected (0.174 sec)
+
+MariaDB [Students]> insert into Students values('4MH17CS082','Shankar',5,'A');
+Query OK, 1 row affected (0.188 sec)
+
+MariaDB [Students]> select * from Students;
++------------+------------+------+------+
+| usn        | name       | sem  | sec  |
++------------+------------+------+------+
+| 4MH17CS070 | Rahul      |    5 | C    |
+| 4MH17CS100 | Subramanya |    5 | B    |
+| 4MH17CS069 | Rakshith   |    5 | C    |
+| 4MH17CS102 | Supreeth   |    5 | B    |
+| 4MH17CS082 | Shankar    |    5 | A    |
++------------+------------+------+------+
+5 rows in set (0.000 sec)
+
+MariaDB [Students]> select usn,name from Students;
++------------+------------+
+| usn        | name       |
++------------+------------+
+| 4MH17CS070 | Rahul      |
+| 4MH17CS100 | Subramanya |
+| 4MH17CS069 | Rakshith   |
+| 4MH17CS102 | Supreeth   |
+| 4MH17CS082 | Shankar    |
++------------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [Students]> select * from Students where sec='C' or sec='A';
++------------+----------+------+------+
+| usn        | name     | sem  | sec  |
++------------+----------+------+------+
+| 4MH17CS070 | Rahul    |    5 | C    |
+| 4MH17CS069 | Rakshith |    5 | C    |
+| 4MH17CS082 | Shankar  |    5 | A    |
++------------+----------+------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [Students]> select * from Students where sec!='C';
++------------+------------+------+------+
+| usn        | name       | sem  | sec  |
++------------+------------+------+------+
+| 4MH17CS100 | Subramanya |    5 | B    |
+| 4MH17CS102 | Supreeth   |    5 | B    |
+| 4MH17CS082 | Shankar    |    5 | A    |
++------------+------------+------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [Students]> select count(*) from Students;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> select count(*) from Students where sec='B';
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> update Students
+    -> set name='Rohit'
+    -> where usn='4MH17CS070';
+Query OK, 1 row affected (0.186 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Students]> select * from Students;
++------------+------------+------+------+
+| usn        | name       | sem  | sec  |
++------------+------------+------+------+
+| 4MH17CS070 | Rohit      |    5 | C    |
+| 4MH17CS100 | Subramanya |    5 | B    |
+| 4MH17CS069 | Rakshith   |    5 | C    |
+| 4MH17CS102 | Supreeth   |    5 | B    |
+| 4MH17CS082 | Shankar    |    5 | A    |
++------------+------------+------+------+
+5 rows in set (0.000 sec)
+
+MariaDB [Students]> update Students
+    -> set sem=7
+    -> where sec='B';
+Query OK, 2 rows affected (0.149 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [Students]> select name,sem,sec from Students;
++------------+------+------+
+| name       | sem  | sec  |
++------------+------+------+
+| Rohit      |    5 | C    |
+| Subramanya |    7 | B    |
+| Rakshith   |    5 | C    |
+| Supreeth   |    7 | B    |
+| Shankar    |    5 | A    |
++------------+------+------+
+5 rows in set (0.000 sec)
+
+MariaDB [Students]> alter table Students add fee float;
+Query OK, 0 rows affected (0.186 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [Students]> desc Students;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| usn   | varchar(10) | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| sem   | int(11)     | YES  |     | NULL    |       |
+| sec   | char(1)     | YES  |     | NULL    |       |
+| fee   | float       | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.007 sec)
+
+MariaDB [Students]> update Students set fee=50000;
+Query OK, 5 rows affected (0.150 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+MariaDB [Students]> select * from Students;
++------------+------------+------+------+-------+
+| usn        | name       | sem  | sec  | fee   |
++------------+------------+------+------+-------+
+| 4MH17CS070 | Rohit      |    5 | C    | 50000 |
+| 4MH17CS100 | Subramanya |    7 | B    | 50000 |
+| 4MH17CS069 | Rakshith   |    5 | C    | 50000 |
+| 4MH17CS102 | Supreeth   |    7 | B    | 50000 |
+| 4MH17CS082 | Shankar    |    5 | A    | 50000 |
++------------+------------+------+------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [Students]> update Students
+    -> set fee=65000.50
+    -> where usn='4MH17CS070';
+Query OK, 1 row affected (0.130 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Students]> update Students
+    -> set fee=70000.5
+    -> where usn='4MH17CS100';
+Query OK, 1 row affected (0.404 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Students]> update Students
+    -> set fee=40000.5
+    -> where usn='4MH17CS102';
+Query OK, 1 row affected (0.141 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Students]> update Students
+    -> set fee=80000
+    -> where usn='4MH17CS082';
+Query OK, 1 row affected (0.053 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [Students]> select * from Students;
++------------+------------+------+------+---------+
+| usn        | name       | sem  | sec  | fee     |
++------------+------------+------+------+---------+
+| 4MH17CS070 | Rohit      |    5 | C    | 65000.5 |
+| 4MH17CS100 | Subramanya |    7 | B    | 70000.5 |
+| 4MH17CS069 | Rakshith   |    5 | C    |   50000 |
+| 4MH17CS102 | Supreeth   |    7 | B    | 40000.5 |
+| 4MH17CS082 | Shankar    |    5 | A    |   80000 |
++------------+------------+------+------+---------+
+5 rows in set (0.000 sec)
+
+MariaDB [Students]> select sum(fee) from Students;
++----------+
+| sum(fee) |
++----------+
+| 305001.5 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> select sum(fee) as SUM_OF_FEE from Students;
++------------+
+| SUM_OF_FEE |
++------------+
+|   305001.5 |
++------------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> select max(fee) from Students;
++----------+
+| max(fee) |
++----------+
+|    80000 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> select min(fee) from Students;
++----------+
+| min(fee) |
++----------+
+|  40000.5 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> select avg(fee) from Students;
++----------+
+| avg(fee) |
++----------+
+|  61000.3 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> select max(fee),min(fee),avg(fee) from Students;
++----------+----------+----------+
+| max(fee) | min(fee) | avg(fee) |
++----------+----------+----------+
+|    80000 |  40000.5 |  61000.3 |
++----------+----------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [Students]> select max(fee),min(fee),avg(fee) from Students where sec='C';
++----------+----------+----------+
+| max(fee) | min(fee) | avg(fee) |
++----------+----------+----------+
+|  65000.5 |    50000 | 57500.25 |
++----------+----------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> select * from Students where fee<50000;
++------------+----------+------+------+---------+
+| usn        | name     | sem  | sec  | fee     |
++------------+----------+------+------+---------+
+| 4MH17CS102 | Supreeth |    7 | B    | 40000.5 |
++------------+----------+------+------+---------+
+1 row in set (0.000 sec)
+
+MariaDB [Students]> alter table Students drop fee;
+Query OK, 0 rows affected (0.712 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [Students]> select * from Students;
++------------+------------+------+------+
+| usn        | name       | sem  | sec  |
++------------+------------+------+------+
+| 4MH17CS070 | Rohit      |    5 | C    |
+| 4MH17CS100 | Subramanya |    7 | B    |
+| 4MH17CS069 | Rakshith   |    5 | C    |
+| 4MH17CS102 | Supreeth   |    7 | B    |
+| 4MH17CS082 | Shankar    |    5 | A    |
++------------+------------+------+------+
+5 rows in set (0.000 sec)
+
+MariaDB [Students]> delete from Students where name='Shankar';
+Query OK, 1 row affected (0.081 sec)
+
+MariaDB [Students]> select * from Students;
++------------+------------+------+------+
+| usn        | name       | sem  | sec  |
++------------+------------+------+------+
+| 4MH17CS070 | Rohit      |    5 | C    |
+| 4MH17CS100 | Subramanya |    7 | B    |
+| 4MH17CS069 | Rakshith   |    5 | C    |
+| 4MH17CS102 | Supreeth   |    7 | B    |
++------------+------------+------+------+
+4 rows in set (0.000 sec)
+
+MariaDB [Students]> select * from Students order by name;
++------------+------------+------+------+
+| usn        | name       | sem  | sec  |
++------------+------------+------+------+
+| 4MH17CS069 | Rakshith   |    5 | C    |
+| 4MH17CS070 | Rohit      |    5 | C    |
+| 4MH17CS100 | Subramanya |    7 | B    |
+| 4MH17CS102 | Supreeth   |    7 | B    |
++------------+------------+------+------+
+4 rows in set (0.001 sec)
+
+MariaDB [Students]> delete from Students;
+Query OK, 4 rows affected (0.140 sec)
+
+MariaDB [Students]> select * from Students;
+Empty set (0.000 sec)
+
